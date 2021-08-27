@@ -243,11 +243,14 @@ class entradasalida extends Validator{
     }
     public function graphRegistro()
     {
+        // Esta consulta se usa en las graficas las cuales se desee poner un limite de 5 datos, en este caso 
+        // es un top 5 donde se agarra el vta y se cuenta el numero de codigo vta, por eso la funcion count  
         $sql ='SELECT  tvta.vta, COUNT (entrasa.codigovta) as cantidad
         FROM entradasalida entrasa
         INNER JOIN tipovta tvta on entrasa.codigovta = tvta.idvta
         GROUP BY tvta.vta 
-        ORDER BY tvta.vta,cantidad';
+        ORDER BY tvta.vta,cantidad
+        limit 5';
         $params = null;
         return Database::getRows($sql, $params);
     }
