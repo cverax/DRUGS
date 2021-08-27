@@ -81,16 +81,18 @@ class Origen extends Validator{
     }
     public function nose()
     {
-        $sql = 'SELECT od.origen, codigo.NombreProducto, codigo.Lote
+        $sql =  'SELECT od.origen, vta.VTA,codigo.NombreProducto, e.cantidad
         FROM EntradaSalida AS e
-        INNER JOIN OrigenDestino AS od
+         INNER JOIN OrigenDestino AS od
         ON e.Destino = od.IdOrigen
+          INNER JOIN TipoVTA AS vta
+    ON e.CodigoVTA = vta.IdVTA
         INNER JOIN Productos AS codigo
         ON e.Productos =codigo.CodigoProducto
-        WHERE od.IdOrigen = ? AND od.estado = true 
+        WHERE od.IdOrigen = ?
         ORDER BY codigo.NombreProducto';
-          $params = array($this->id); 
-        return Database::getRows($sql, $params);
+            $params = array($this->id);
+            return Database::getRows($sql, $params);
       
     }
 }

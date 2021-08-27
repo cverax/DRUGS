@@ -5,7 +5,7 @@ require('../../models/productos.php');
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
-$pdf->startReport('Productos por categoría');
+$pdf->startReport('Reporte de productos');
 
 // Se instancia el módelo Categorías para obtener los datos.
 $categoria = new Productos;
@@ -26,11 +26,11 @@ if ($dataCategorias = $categoria->readAll()) {
             // Se establece la fuente para los encabezados.
             $pdf->SetFont('Times', 'B', 11);
             // Se imprimen las celdas con los encabezados.
-            $pdf->Cell(35, 10, utf8_decode('codigo'), 1, 0, 'C', 1);
-            $pdf->Cell(65, 10, utf8_decode('nombre'), 1, 0, 'C', 1);
-            $pdf->Cell(35, 10, utf8_decode('categoria'), 1, 0, 'C', 1);
-            $pdf->Cell(21, 10, utf8_decode('lote'), 1, 0, 'C', 1);
-            $pdf->Cell(30, 10, utf8_decode('cantidad'), 1, 1, 'C', 1);
+            $pdf->Cell(35, 10, utf8_decode('Codigo'), 1, 0, 'C', 1);
+            $pdf->Cell(65, 10, utf8_decode('Nombre'), 1, 0, 'C', 1);
+            $pdf->Cell(35, 10, utf8_decode('Categoria'), 1, 0, 'C', 1);
+            $pdf->Cell(21, 10, utf8_decode('Lote'), 1, 0, 'C', 1);
+            $pdf->Cell(30, 10, utf8_decode('Cantidad'), 1, 1, 'C', 1);
             // Se establece la fuente para los datos de los productos.
             $pdf->SetFont('Times', '', 11);
             // Se recorren los registros ($dataProductos) fila por fila ($rowProducto).

@@ -19,15 +19,17 @@ require('../../models/origen.php');
              // Se establece la fuente para los encabezados.
              $pdf->SetFont('Times', 'B', 11);
              // Se imprimen las celdas con los encabezados.
-             $pdf->Cell(140, 10, utf8_decode('Nombre'), 1, 0, 'C', 1);
-             $pdf->Cell(46, 10, utf8_decode('Lote'), 1, 1, 'C', 1);
+             $pdf->Cell(100, 10, utf8_decode('Nombre del producto'), 1, 0, 'C', 1);
+             $pdf->Cell(40, 10, utf8_decode('VTA'), 1, 0, 'C', 1);
+             $pdf->Cell(46, 10, utf8_decode('Cantidad'), 1, 1, 'C', 1);
              // Se establece la fuente para los datos de los productos.
              $pdf->SetFont('Times', '', 11);
              // Se recorren los registros ($dataProductos) fila por fila ($rowProducto).
              foreach ($dataProductos as $rowProducto) {
                  // Se imprimen las celdas con los datos de los productos.
-                 $pdf->Cell(140, 10, utf8_decode($rowProducto['nombreproducto']), 1, 0);
-                 $pdf->Cell(46, 10, $rowProducto['lote'], 1, 1);
+                 $pdf->Cell(100, 10, utf8_decode($rowProducto['nombreproducto']), 1, 0);
+                 $pdf->Cell(40, 10, $rowProducto['vta'], 1, 0);
+                 $pdf->Cell(46, 10, $rowProducto['cantidad'], 1, 1);
              }
          } else {
              $pdf->Cell(0, 10, utf8_decode('No hay productos para esta categoría'), 1, 1);

@@ -13,6 +13,8 @@ Dashboard_Page::headerTemplate('Origen');
     <div class="input-field right-align col s12 m4">
         
         <a href="#" onclick="openCreateDialog()" class="btn waves-effect indigo tooltipped" data-tooltip="Crear"><i class="material-icons">add_circle</i></a>
+        <a href="../app/reports/dashboard/registro_origen.php" target="_blank" class="btn waves-effect amber tooltipped" data-tooltip="reporte de acciondes de los vendedores"><i class="material-icons">assignment</i></a>
+
     </div>
 </div>
 </div>

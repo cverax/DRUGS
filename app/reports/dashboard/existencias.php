@@ -5,7 +5,7 @@ require('../../models/registro.php');
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
-$pdf->startReport('Reporte general de existencias');
+$pdf->startReport('Existencias de los productos');
 
 // Se instancia el módelo Categorías para obtener los datos.
 $categoria = new entradasalida;
@@ -28,7 +28,7 @@ if ($dataCategorias = $categoria->readAllexistencia()) {
                 $pdf->SetFont('Times', 'B', 11);
                 // Se imprimen las celdas con los encabezados.
                 $pdf->Cell(140, 10, utf8_decode('Nombre'), 1, 0, 'C', 1);
-                $pdf->Cell(46, 10, utf8_decode('cantidad'), 1, 1, 'C', 1);
+                $pdf->Cell(46, 10, utf8_decode('Cantidad'), 1, 1, 'C', 1);
                 // Se establece la fuente para los datos de los productos.
                 $pdf->SetFont('Times', '', 11);
                 // Se recorren los registros ($dataProductos) fila por fila ($rowProducto).

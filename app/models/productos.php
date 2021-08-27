@@ -176,7 +176,7 @@ class Productos extends Validator{
    
     public function nosepa()
     {
-        $sql = 'SELECT vta.VTA, codigo.NombreProducto, e.Cantidad, doc.Documentos
+        $sql = 'SELECT vta.VTA, codigo.lote, e.Cantidad, doc.Documentos
         FROM EntradaSalida AS e 
         INNER JOIN TipoVTA AS vta
         ON e.CodigoVTA = vta.IdVTA

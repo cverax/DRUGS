@@ -5,7 +5,7 @@ require('../../models/vendedor.php');
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
-$pdf->startReport('Productos por categoría');
+$pdf->startReport('Productos por vendedor');
 
 // Se instancia el módelo Categorías para obtener los datos.
 $Vendedor = new Vendedor;
@@ -18,7 +18,7 @@ if ($dataCategorias = $Vendedor->readAll()) {
         // Se establece la fuente para el nombre de la categoría.
         $pdf->SetFont('Times', 'B', 12);
         // Se imprime una celda con el nombre de la categoría.
-        $pdf->Cell(0, 10, utf8_decode('Categoría: '.$rowCategoria['vendedor']), 1, 1, 'C', 1);
+        $pdf->Cell(0, 10, utf8_decode('Vendedor: '.$rowCategoria['vendedor']), 1, 1, 'C', 1);
         // Se establece la categoría para obtener sus productos, de lo contrario se imprime un mensaje de error.
         if ($Vendedor->setId($rowCategoria['idvendedor'])) {
             // Se verifica si existen registros (productos) para mostrar, de lo contrario se imprime un mensaje.
