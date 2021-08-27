@@ -254,4 +254,19 @@ class entradasalida extends Validator{
         $params = null;
         return Database::getRows($sql, $params);
     }
+    public function readProductosCategoria()
+    {
+        // odio git y odio a la niña que me obligo a ocuparlo  
+        $sql = 'SELECT vta.VTA, codigo.NombreProducto, e.Cantidad, doc.Documentos
+        FROM EntradaSalida AS e 
+        INNER JOIN TipoVTA AS vta
+        ON e.CodigoVTA = vta.IdVTA
+		INNER JOIN TipoDocumento AS doc
+        ON e.TipoDocumento=doc.IdDocumento
+        INNER JOIN Productos AS codigo
+        ON e.Productos =codigo.CodigoProducto';
+
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
     }
