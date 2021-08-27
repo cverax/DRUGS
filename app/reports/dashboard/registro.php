@@ -18,7 +18,7 @@ if ($dataCategorias = $categoria->readAll()) {
         // Se imprime una celda con el nombre de la categoría.
         $pdf->Cell(0, 10, utf8_decode('Entradas y salidas de productos'), 1, 1, 'C', 1);
         // Se establece la categoría para obtener sus productos, de lo contrario se imprime un mensaje de error.
-
+ 
             // Se verifica si existen registros (productos) para mostrar, de lo contrario se imprime un mensaje.
             if ($dataProductos = $categoria->readProductosCategoria()) {
                 // Se establece un color de relleno para los encabezados.

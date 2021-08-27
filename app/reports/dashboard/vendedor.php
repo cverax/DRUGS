@@ -30,7 +30,7 @@ require('../../models/vendedor.php');
                  $pdf->Cell(100, 10, utf8_decode($rowProducto['nombreproducto']), 1, 0);
                  $pdf->Cell(40, 10, $rowProducto['vta'], 1, 0);
                  $pdf->Cell(46, 10, $rowProducto['cantidad'], 1, 1);
-             }
+             } 
          } else {
              $pdf->Cell(0, 10, utf8_decode('No hay productos para esta categoría'), 1, 1);
          }
