@@ -49,7 +49,7 @@ function graficaProductos() {
                     });
                     // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
                    // pieGraph('chart5',['inactivos','activos'], cantidad, 'Porcentaje de empleados por estado' );
-                   barGraph('chart1',categoria, cantidad, 'Cantidad de productos por categoría', 'Cantidad de productos por categorías' );
+                   barGraph('chart1',categoria, cantidad, 'Cantidad de productos por categoría', 'Top 5 cantidad de productos por categorías' );
                 } else {
                     document.getElementById('chart1').remove();
                     console.log(response.exception);
@@ -83,7 +83,7 @@ function graficaRegistro() {
                     });
                     // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
                    // pieGraph('chart5',['inactivos','activos'], cantidad, 'Porcentaje de empleados por estado' );
-                   pieGraph('chart2',vta, cantidad, 'Vta por código vta', );
+                   pieGraph('chart2',vta, cantidad, 'Top 5 VTA por código VTA', );
                 } else {
                     document.getElementById('chart2').remove();
                     console.log(response.exception);
