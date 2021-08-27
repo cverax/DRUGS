@@ -83,7 +83,7 @@ function graficaRegistro() {
                     });
                     // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
                    // pieGraph('chart5',['inactivos','activos'], cantidad, 'Porcentaje de empleados por estado' );
-                   barGraph('chart2',vta, cantidad, 'Vta por código vta', 'Vta por código vta' );
+                   pieGraph('chart2',vta, cantidad, 'Vta por código vta', );
                 } else {
                     document.getElementById('chart2').remove();
                     console.log(response.exception);
