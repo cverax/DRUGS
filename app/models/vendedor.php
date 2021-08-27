@@ -79,4 +79,19 @@ class Vendedor extends Validator{
         $params = array($this->estado,  $this->id);
         return Database::executeRow($sql, $params);
     }
+    public function lpm()
+    {
+        $sql = 'SELECT ven.vendedor, vta.VTA,codigo.NombreProducto, e.cantidad
+        FROM EntradaSalida AS e
+        INNER JOIN  Vendedores AS ven
+        ON e.Vendedor = ven.IdVendedor
+          INNER JOIN TipoVTA AS vta
+    ON e.CodigoVTA = vta.IdVTA
+        INNER JOIN Productos AS codigo
+        ON e.Productos =codigo.CodigoProducto
+        WHERE ven.idvendedor = ? AND ven.estado = true 
+        ORDER BY codigo.NombreProducto';
+            $params = array($this->id);
+            return Database::getRows($sql, $params);
+    }
 }

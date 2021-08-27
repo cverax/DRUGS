@@ -79,4 +79,18 @@ class Origen extends Validator{
         $params = array($this->estado,  $this->id);
         return Database::executeRow($sql, $params);
     }
+    public function nose()
+    {
+        $sql = 'SELECT od.origen, codigo.NombreProducto, codigo.Lote
+        FROM EntradaSalida AS e
+        INNER JOIN OrigenDestino AS od
+        ON e.Destino = od.IdOrigen
+        INNER JOIN Productos AS codigo
+        ON e.Productos =codigo.CodigoProducto
+        WHERE od.IdOrigen = ? AND od.estado = true 
+        ORDER BY codigo.NombreProducto';
+          $params = array($this->id); 
+        return Database::getRows($sql, $params);
+      
+    }
 }

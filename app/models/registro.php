@@ -219,11 +219,11 @@ class entradasalida extends Validator{
     }
     public function readAllexistencia()
     {
-        $sql = 'SELECT Productos.nombreproducto, EntradaSalida.Productos, Productos.Lote, Productos.Vencimiento, SUM(CASE WHEN CodigoVTA = 1 THEN cantidad WHEN CodigoVTA = 2  THEN cantidad
+        $sql = 'SELECT Productos.nombreproducto,Productos.codigoproducto, EntradaSalida.Productos, Productos.Lote, Productos.Vencimiento, SUM(CASE WHEN CodigoVTA = 1 THEN cantidad WHEN CodigoVTA = 2  THEN cantidad
         WHEN CodigoVTA = 4 THEN cantidad WHEN CodigoVTA = 8 THEN cantidad WHEN CodigoVTA = 3 then cantidad*(-1) 
         WHEN CodigoVTA = 5 THEN cantidad WHEN CodigoVTA = 6 THEN cantidad*(-1) WHEN CodigoVTA = 7 then cantidad*(-1)  WHEN CodigoVTA = 9 THEN cantidad*(-1) END)AS Cantidad FROM EntradaSalida
         INNER JOIN Productos ON Productos.CodigoProducto= EntradaSalida.Productos
-        GROUP BY Productos.nombreproducto, EntradaSalida.Productos,Productos.Lote,Productos.Vencimiento
+        GROUP BY Productos.nombreproducto, EntradaSalida.Productos,Productos.Lote,Productos.Vencimiento,Productos.codigoproducto
         ORDER BY Productos.nombreproducto
         ';
         $params = null;
@@ -241,5 +241,17 @@ class entradasalida extends Validator{
         $params = array("%$value%");
         return Database::getRows($sql, $params);
     }
-    
+    public function readProductosCategoria()
+    {
+        $sql = 'SELECT vta.VTA, codigo.NombreProducto, e.Cantidad, doc.Documentos
+        FROM EntradaSalida AS e 
+        INNER JOIN TipoVTA AS vta
+        ON e.CodigoVTA = vta.IdVTA
+		INNER JOIN TipoDocumento AS doc
+        ON e.TipoDocumento=doc.IdDocumento
+        INNER JOIN Productos AS codigo
+        ON e.Productos =codigo.CodigoProducto';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
     }

@@ -18,7 +18,8 @@ function fillTable(dataset) {
                 <td><i class="material-icons">${icon}</i></td>
                 <td>
                     <a href="#" onclick="openUpdateDialog(${row.idorigen})" class="btn waves-effect blue tooltipped" data-tooltip="Actualizar"><i class="material-icons">mode_edit</i></a>         
-                           </td>
+                    <a href="../app/reports/dashboard/origen.php?id=${row.idorigen}" target="_blank" class="btn waves-effect amber tooltipped" data-tooltip="Reporte de productos"><i class="material-icons">assignment</i></a>       
+                    </td>
             </tr>
         `;
     });

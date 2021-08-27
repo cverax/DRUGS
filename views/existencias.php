@@ -9,6 +9,7 @@ Dashboard_Page::headerTemplate('Existencias');
 <div class="row card-panel">
 <div class="input-field center-align ">
 <h5>Existencias</h5>
+<a href="../app/reports/dashboard/existencias.php" target="_blank" class="btn waves-effect amber tooltipped" data-tooltip="reporte general de existencias"><i class="material-icons">assignment</i></a>
 </div>
 </div>
 </div>
@@ -23,7 +24,8 @@ Dashboard_Page::headerTemplate('Existencias');
             <th>Codigo producto</th>
             <th>Lote</th>
             <th>Vencimiento</th>
-            <th>Cantidad </th>
+            <th>Cantidad</th>
+            <th>reporte</th>
         </tr>
     </thead>
     <!-- Cuerpo de la tabla para mostrar un registro por fila -->

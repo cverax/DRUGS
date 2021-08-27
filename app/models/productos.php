@@ -167,4 +167,25 @@ class Productos extends Validator{
         return Database::getRows($sql, $params);
 
     }
+    public function readProductosCategoria()
+    {
+        $sql = 'SELECT CodigoProducto, NombreProducto, Categoria, Lote, Vencimiento,comentario FROM Productos ORDER BY CodigoProducto';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+   
+    public function nosepa()
+    {
+        $sql = 'SELECT vta.VTA, codigo.NombreProducto, e.Cantidad, doc.Documentos
+        FROM EntradaSalida AS e 
+        INNER JOIN TipoVTA AS vta
+        ON e.CodigoVTA = vta.IdVTA
+		INNER JOIN TipoDocumento AS doc
+        ON e.TipoDocumento=doc.IdDocumento
+        INNER JOIN Productos AS codigo
+        ON e.Productos =codigo.CodigoProducto
+		where codigo.codigoproducto= ?';
+        $params = array($this->codigo);
+        return Database::getRows($sql, $params);
+    }
 }

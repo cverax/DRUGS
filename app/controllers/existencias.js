@@ -20,7 +20,9 @@ function fillTable(dataset) {
                 <td>${row.lote}</td>
                 <td>${row.vencimiento}</td>
                 <td>${row.cantidad}</td>
-              
+                <td>
+                <a href="../app/reports/dashboard/exitencia_registro.php?id=${row.codigoproducto}" target="_blank" class="btn waves-effect amber tooltipped" data-tooltip="Reporte de productos"><i class="material-icons">assignment</i></a>    
+                </td>
             </tr>
         `;
     });
