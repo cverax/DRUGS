@@ -19,7 +19,19 @@ if (isset($_GET['action'])){
                         $result['exception'] = 'No hay productos registrados';
                     }
                 }
+                break;
+                case 'graphExistencias':
+                    if ($result['dataset'] = $Productos->graphExistencias()) {
+                         $result['status'] = 1;
+                    } else {
+                         if (Database::getException()) {
+                               $result['exception'] = Database::getException();
+                         } else {
+                               $result['exception'] = 'No hay datos registrados';
+                         }
+                    }						                    
                 break;  
+
                 case 'searchRows':
                     $_POST = $entradasalida->validateForm($_POST);
                     if ($_POST['search'] != '') {

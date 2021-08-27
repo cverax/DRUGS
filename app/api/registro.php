@@ -98,6 +98,17 @@ if (isset($_GET['action'])){
                         $result['exception'] = 'origen erróneo';
                     }
                     break;
+                    case 'graphRegistro':
+                        if ($result['dataset'] = $entradasalida->graphRegistro()) {
+                             $result['status'] = 1;
+                        } else {
+                             if (Database::getException()) {
+                                   $result['exception'] = Database::getException();
+                             } else {
+                                   $result['exception'] = 'No hay datos registrados';
+                             }
+                        }						                    
+                    break;
                     case 'readAllvta':
                         if ($result['dataset'] = $entradasalida->readAllvta()) {
                             $result['status'] = 1;  

@@ -241,16 +241,13 @@ class entradasalida extends Validator{
         $params = array("%$value%");
         return Database::getRows($sql, $params);
     }
-    public function readProductosCategoria()
+    public function graphRegistro()
     {
-        $sql = 'SELECT vta.VTA, codigo.NombreProducto, e.Cantidad, doc.Documentos
-        FROM EntradaSalida AS e 
-        INNER JOIN TipoVTA AS vta
-        ON e.CodigoVTA = vta.IdVTA
-		INNER JOIN TipoDocumento AS doc
-        ON e.TipoDocumento=doc.IdDocumento
-        INNER JOIN Productos AS codigo
-        ON e.Productos =codigo.CodigoProducto';
+        $sql ='SELECT  tvta.vta, COUNT (entrasa.codigovta) as cantidad
+        FROM entradasalida entrasa
+        INNER JOIN tipovta tvta on entrasa.codigovta = tvta.idvta
+        GROUP BY tvta.vta 
+        ORDER BY tvta.vta,cantidad';
         $params = null;
         return Database::getRows($sql, $params);
     }

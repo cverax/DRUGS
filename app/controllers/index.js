@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     // Se muestra el saludo en la página web.
     document.getElementById('greeting').textContent = greeting;
-
+    graficaRegistro();
     graficaProductos();
 
 });
@@ -52,6 +52,40 @@ function graficaProductos() {
                    barGraph('chart1',categoria, cantidad, 'Cantidad de productos por categoría', 'Cantidad de productos por categorías' );
                 } else {
                     document.getElementById('chart1').remove();
+                    console.log(response.exception);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+function graficaRegistro() {
+    fetch(API_REGISTRO + 'graphRegistro', {
+        method: 'get'
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
+                if (response.status) {
+                    // Se declaran los arreglos para guardar los datos por gráficar.
+                    let vta = [];
+                    let cantidad = [];
+                    // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                    response.dataset.map(function (row) {
+                        // Se asignan los datos a los arreglos.
+                        vta.push(row.vta);
+                        cantidad.push(row.cantidad);
+                    });
+                    // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
+                   // pieGraph('chart5',['inactivos','activos'], cantidad, 'Porcentaje de empleados por estado' );
+                   barGraph('chart2',vta, cantidad, 'Vta por código vta', 'Vta por código vta' );
+                } else {
+                    document.getElementById('chart2').remove();
                     console.log(response.exception);
                 }
             });

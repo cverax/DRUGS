@@ -9,10 +9,9 @@ Dashboard_Page::headerTemplate('Página principal');
         </div>  
 <main>
         <Section>
-            <div class="row">     
-                <div class="text-center col-12 col-xs-12 col-sm-12 col-lg-6 col-xl-6 p-4 col-xxl-6">
+            <div class="container">
                     <canvas id="chart1"></canvas>
-                </div>
+                    <canvas id="chart2"></canvas>
             </div>
         </Section>   
 </main>
