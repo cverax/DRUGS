@@ -14,7 +14,7 @@ Dashboard_Page::headerTemplate('Página principal');
                     <canvas id="chart1"></canvas>
                 </div>
             </div>
-        </Section>
+        </Section>   
 </main>
 <!-- Importación del archivo para generar gráficas en tiempo real. Para más información https://www.chartjs.org/ -->
 <script type="text/javascript" src="../resources/js/chart.js"></script>
