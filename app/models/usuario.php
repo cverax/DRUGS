@@ -6,6 +6,7 @@ class Usuario extends Validator{
     private $usuario = null;
     private $tipou = null;
     private $clave = null;
+    private $correo = null;
     private $idtipo=null;
     private $tipo =null;
 
@@ -55,6 +56,15 @@ class Usuario extends Validator{
             return false;
         }
     }
+    public function setCorreo($value)
+    {
+        if ($this->validateEmail($value)) {
+            $this->correo = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function setIdtipo($value)
     {
         if ($this->validateNaturalNumber($value)) {
@@ -93,6 +103,10 @@ class Usuario extends Validator{
     {
         return $this->clave;
     }
+    public function getCorreo()
+    {
+        return $this->correo;
+    }
     public function getIdtipo()
     {
         return $this->idtipo;
@@ -127,20 +141,43 @@ class Usuario extends Validator{
             return false;
         }
     }
+    public function changePassword()
+    {
+        $hash = password_hash($this->clave, PASSWORD_DEFAULT);
+        $sql = 'UPDATE usuario SET contraseña = ? WHERE idusuario = ?';
+        $params = array($hash, $_SESSION['idusuario']);
+        return Database::executeRow($sql, $params);
+    }
+    public function readProfile()
+    {
+        $sql = 'SELECT idusuario, nombreusuario, correo, usuario
+                FROM usuario
+                WHERE idusuario = ?';
+        $params = array($_SESSION['idusuario']);
+        return Database::getRow($sql, $params);
+    }
+    public function editProfile()
+    {
+        $sql = 'UPDATE usuario
+                SET nombreusuario = ?,  correo = ?, usuario = ?
+                WHERE idusuario = ?';
+        $params = array($this->nombre,  $this->correo, $this->usuario, $_SESSION['idusuario']);
+        return Database::executeRow($sql, $params);
+    }
    // ---------------------------------------------------------------------------------------------------------------------
 
    public function createRow()
    {
     $hash = password_hash($this->clave, PASSWORD_DEFAULT);
-       $sql = 'INSERT INTO Usuario (NombreUsuario, Usuario, TipoUsuario, Contraseña)
-       VALUES (?,?,?,?)';
-       $params = array($this->nombre, $this->usuario, $this->tipou,$hash);
+       $sql = 'INSERT INTO Usuario (NombreUsuario, Usuario, TipoUsuario, Contraseña, correo)
+       VALUES (?,?,?,?,?)';
+       $params = array($this->nombre, $this->usuario, $this->tipou,$hash,$this->correo);
        return Database::executeRow($sql, $params);
    }
 
    public function readAll()
    {
-       $sql = 'SELECT usuario.idusuario, usuario.nombreusuario, usuario.usuario,usuario.contraseña,ven.TipoU
+       $sql = 'SELECT usuario.idusuario, usuario.nombreusuario, usuario.usuario,usuario.contraseña,ven.TipoU, correo
        FROM usuario 
 		inner join TipoUsuario as ven
 		on usuario.tipousuario = ven.idtipou
@@ -151,7 +188,7 @@ class Usuario extends Validator{
 
    public function readOne()
    {
-       $sql = 'SELECT usuario.idusuario, usuario.nombreusuario, usuario.usuario,usuario.contraseña,ven.TipoU
+       $sql = 'SELECT usuario.idusuario, usuario.nombreusuario, usuario.usuario,usuario.contraseña,ven.TipoU,correo
        FROM usuario 
 		inner join TipoUsuario as ven
 		on usuario.tipousuario = ven.idtipou
@@ -173,9 +210,9 @@ class Usuario extends Validator{
    public function updateRow()
    {
        $sql = 'UPDATE usuario 
-               SET nombreusuario=?, usuario=?
+               SET nombreusuario=?, usuario=?, correo=?
                WHERE idusuario = ?';
-       $params = array($this->nombre, $this->usuario, $this->id);
+       $params = array($this->nombre, $this->usuario,$this->correo, $this->id);
        return Database::executeRow($sql, $params);
    }
    public function updateRowpass()

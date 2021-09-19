@@ -1,12 +1,6 @@
-/*
-*   Este controlador es de uso general en las páginas web del sitio privado. Se importa en la plantilla del pie del documento.
-*   Sirve para manejar todo lo que tiene que ver con la cuenta del usuario.
-*/
-
 // Constante para establecer la ruta y parámetros de comunicación con la API.
-const API = '../../app/api/dashboard/usuarios.php?action=';
+const API = '../app/api/login.php?action=';
 
-// Función para mostrar el formulario de editar perfil con los datos del usuario que ha iniciado sesión.
 function openProfileDialog() {
     // Se abre la caja de dialogo (modal) que contiene el formulario para editar perfil, ubicado en el archivo de las plantillas.
     let instance = M.Modal.getInstance(document.getElementById('profile-modal'));
@@ -21,8 +15,9 @@ function openProfileDialog() {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
                     // Se inicializan los campos del formulario con los datos del usuario que ha iniciado sesión.
-                    document.getElementById('NombreUsuario').value = response.dataset.NombreUsuario;
-                    document.getElementById('Usuario').value = response.dataset.Usuario;
+                    document.getElementById('nombres').value = response.dataset.nombreusuario;
+                    document.getElementById('usuarios').value = response.dataset.usuario;
+                    document.getElementById('correos').value = response.dataset.correo;
                     // Se actualizan los campos para que las etiquetas (labels) no queden sobre los datos.
                     M.updateTextFields();
                 } else {
@@ -36,7 +31,6 @@ function openProfileDialog() {
         console.log(error);
     });
 }
-
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de editar perfil.
 document.getElementById('profile-form').addEventListener('submit', function (event) {
     // Se evita recargar la página web después de enviar el formulario.
@@ -55,7 +49,7 @@ document.getElementById('profile-form').addEventListener('submit', function (eve
                     let instance = M.Modal.getInstance(document.getElementById('profile-modal'));
                     instance.close();
                     // Se muestra un mensaje y se direcciona a la página web de bienvenida para actualizar el nombre del usuario en el menú.
-                    sweetAlert(1, response.message, 'main.php');
+                    sweetAlert(1, response.message, null);
                 } else {
                     sweetAlert(2, response.exception, null);
                 }
@@ -68,30 +62,22 @@ document.getElementById('profile-form').addEventListener('submit', function (eve
     });
 });
 
-// Función para mostrar el formulario de cambiar contraseña del usuario que ha iniciado sesión.
 function openPasswordDialog() {
-    // Se restauran los elementos del formulario.
     document.getElementById('password-form').reset();
-    // Se abre la caja de dialogo (modal) que contiene el formulario para cambiar contraseña, ubicado en el archivo de las plantillas.
     let instance = M.Modal.getInstance(document.getElementById('password-modal'));
     instance.open();
 }
 
-// Método manejador de eventos que se ejecuta cuando se envía el formulario de cambiar clave.
 document.getElementById('password-form').addEventListener('submit', function (event) {
-    // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
 
     fetch(API + 'changePassword', {
         method: 'post',
         body: new FormData(document.getElementById('password-form'))
     }).then(function (request) {
-        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
         if (request.ok) {
             request.json().then(function (response) {
-                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
-                    // Se cierra la caja de dialogo (modal) del formulario.
                     let instance = M.Modal.getInstance(document.getElementById('password-modal'));
                     instance.close();
                     sweetAlert(1, response.message, null);
@@ -107,7 +93,7 @@ document.getElementById('password-form').addEventListener('submit', function (ev
     });
 });
 
-// Función para mostrar un mensaje de confirmación al momento de cerrar sesión.
+
 function logOut() {
     swal({
         title: 'Advertencia',
@@ -127,7 +113,7 @@ function logOut() {
                     request.json().then(function (response) {
                         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                         if (response.status) {
-                            sweetAlert(1, response.message, 'index.php');
+                            sweetAlert(1, response.message, 'login.php');
                         } else {
                             sweetAlert(2, response.exception, null);
                         }

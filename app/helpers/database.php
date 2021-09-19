@@ -16,7 +16,7 @@ class Database
     {
         // Credenciales para establecer la conexión con la base de datos.
         $server = 'localhost';
-        $database = 'CompleteCreo';
+        $database = 'DBFarmacia';
         $username = 'postgres';
         $password = '123';
 

@@ -56,6 +56,7 @@ if (isset($_GET['action'])){
                     $_POST = $origen->validateForm($_POST);
                         if ($origen->setId($_POST['id'])) {
                             if ($origen->readOne()) {
+                                if ($origen->setOrigen($_POST['origen'])) {
                                     if ($origen->setEstado(isset($_POST['estado']) ? 1 : 0)) {
                                         if ($origen->updateRow()) {
                                             $result['status'] = 1;
@@ -66,6 +67,9 @@ if (isset($_GET['action'])){
                                     } else {
                                         $result['exception'] = 'Estado incorrecto';
                                     }
+                                } else {
+                                    $result['exception'] = 'Nombre incorrecto';
+                                    }    
                             } else {
                                 $result['exception'] = 'Problema con leer id';
                             }

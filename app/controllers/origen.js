@@ -52,7 +52,6 @@ function openUpdateDialog(id) {
     instance.open();
     // Se asigna el título para la caja de dialogo (modal).
     document.getElementById('modal-title').textContent = 'Actualizar origen';
-    document.getElementById('origen').disabled = true;
 
     // Se define un objeto con los datos del registro seleccionado.
     const data = new FormData();

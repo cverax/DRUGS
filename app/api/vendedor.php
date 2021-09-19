@@ -56,6 +56,7 @@ if (isset($_GET['action'])){
                     $_POST = $Vendedor->validateForm($_POST);
                         if ($Vendedor->setId($_POST['id'])) {
                             if ($Vendedor->readOne()) {
+                                if ($Vendedor->setVendedor($_POST['vendedor'])) {
                                     if ($Vendedor->setEstado(isset($_POST['estado']) ? 1 : 0)) {
                                         if ($Vendedor->updateRow()) {
                                             $result['status'] = 1;
@@ -66,6 +67,9 @@ if (isset($_GET['action'])){
                                     } else {
                                         $result['exception'] = 'Estado incorrecto';
                                     }
+                                    } else {
+                                        $result['exception'] = 'Nombre incorrecto';
+                                     }
                             } else {
                                 $result['exception'] = 'Problema con leer id';
                             }

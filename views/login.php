@@ -16,10 +16,10 @@ Dashboard_Page::headerTemplate('Iniciar sesion');
                 </div>
                 <span><i class="fas fa-user-alt"></i> Inicio de sesión</span><br/>
             <div class="form-group">
-                <input id="usuario" type="text" name="usuario" class="validate" required/>
+                <input id="usuario" type="text" name="usuario" class="validate" autocomplete="off" required/>
             </div>
             <div class="form-group">
-                <input id="contraseña" type="password" name="contraseña" class="validate" required/>
+                <input id="contraseña" type="password" name="contraseña" class="validate" autocomplete="off" required/>
             </div>
               <p>
               <div class="col s12 center-align">

@@ -74,9 +74,9 @@ class Origen extends Validator{
     public function updateRow()
     {
         $sql = 'UPDATE OrigenDestino
-                SET estado = ?
+                SET estado = ?, origen=?
                 WHERE  idorigen=?';
-        $params = array($this->estado,  $this->id);
+        $params = array($this->estado, $this->origen, $this->id);
         return Database::executeRow($sql, $params);
     }
     public function nose()

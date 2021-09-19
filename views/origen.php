@@ -6,7 +6,6 @@ Dashboard_Page::headerTemplate('Origen');
 ?>
 <br>
 <div class="container">
-<div class="row card-panel">
 <div class="input-field col s6 m4">
 <h4>Origenes/Destinos</h4>
 </div>
@@ -17,10 +16,8 @@ Dashboard_Page::headerTemplate('Origen');
 
     </div>
 </div>
-</div>
 <br>
 <div class="container">
-<div class="row card-panel">
 <table class="responsive-table">
     <!-- Cabeza de la tabla para mostrar los títulos de las columnas -->
     <thead>
@@ -34,7 +31,6 @@ Dashboard_Page::headerTemplate('Origen');
     <tbody id="tbody-rows">
     </tbody>
 </table>
-</div>
 </div>
 <!-- Componente Modal para mostrar una caja de dialogo -->
 <div id="save-modal" class="modal">

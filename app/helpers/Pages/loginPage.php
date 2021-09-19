@@ -1,4 +1,4 @@
-<?php
+|<?php
 //Clase para definir las plantillas de las páginas web del sitio privado
 class Dashboard_Page {
     //Método para imprimir el encabezado y establecer el titulo del documento

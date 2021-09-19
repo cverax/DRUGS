@@ -38,7 +38,6 @@ function openCreateDialog() {
     instance.open();
     // Se asigna el título para la caja de dialogo (modal).
     document.getElementById('modal-title').textContent = 'Ingresar Origen';
-    document.getElementById('vendedor').disabled = false;
     // Se establece el campo de archivo como obligatorio.
 }
 
@@ -51,8 +50,6 @@ function openUpdateDialog(id) {
     instance.open();
     // Se asigna el título para la caja de dialogo (modal).
     document.getElementById('modal-title').textContent = 'Actualizar origen';
-    document.getElementById('vendedor').disabled = true;
-
     // Se define un objeto con los datos del registro seleccionado.
     const data = new FormData();
     data.append('idvendedor', id);

@@ -74,9 +74,9 @@ class Vendedor extends Validator{
     public function updateRow()
     {
         $sql = 'UPDATE Vendedores
-                SET estado = ?
+                SET estado = ?, vendedor=?
                 WHERE  idvendedor=?';
-        $params = array($this->estado,  $this->id);
+        $params = array($this->estado,$this->vendedor,  $this->id);
         return Database::executeRow($sql, $params);
     }
     public function lpm()

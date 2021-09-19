@@ -24,6 +24,7 @@ if (isset($_GET['action'])){
                         if ($Usuario->setNombre($_POST['nombre'])) {
                             if ($Usuario->setUsuario($_POST['usuario'])) {
                                 if ($Usuario->setTipoU($_POST['tipoempleado'])) {
+                                    if ($Usuario -> setCorreo ($_POST ['correo'])){
                                     if ($_POST['clave'] == $_POST['confclave']) {
                                     if ($Usuario->setClave($_POST['clave'])) {
                                         if ($Usuario->createRow()) {
@@ -39,7 +40,9 @@ if (isset($_GET['action'])){
                                     } else {
                                         $result['exception'] = 'Claves diferentes';
                                     }
-
+                                } else {
+                                    $result['exception'] = 'correo incorrecto';
+                                } 
                                 } else {
                                     $result['exception'] = 'tipo de empleado incorrecto';
                                 } 
@@ -87,13 +90,16 @@ if (isset($_GET['action'])){
                             if ($Usuario->readOne()) {
                                 if ($Usuario->setNombre($_POST['nombre'])) {
                                     if ($Usuario->setUsuario($_POST['usuario'])) {
+                                        if ($Usuario -> setCorreo ($_POST ['correo'])){
                                         if ($Usuario->updateRow()) {
                                                      $result['status'] = 1;
                                                     $result['message'] = 'Usuario Guardado Correctamente'; 
                                                 } else {
                                                     $result['exception'] = Database::getException();;
                                                 }
-         
+                                            } else {
+                                                $result['exception'] = 'Correo incorrecto';
+                                               } 
                                     } else {
                                         $result['exception'] = 'Usuario incorrecto';
                                     } 
