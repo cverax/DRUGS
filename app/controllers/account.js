@@ -92,7 +92,32 @@ document.getElementById('password-form').addEventListener('submit', function (ev
         console.log(error);
     });
 });
+function openfill() {
+     let instance = M.Modal.getInstance(document.getElementById('cont-modal'));
+    instance.open();
+    readRs(API);
 
+}
+
+function fillTable(dataset) {
+    let content = '';
+    // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
+    dataset.map(function (row) {
+
+        // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+        content += `
+        <tr> 
+        <td>${row.navegador}</td>
+        <td>${row.dispositivo}</td>
+        <td>${row.fecha}</td>
+    </tr>
+        `;
+    });
+    // Se agregan las filas al cuerpo de la tabla mediante su id para mostrar los registros.
+    document.getElementById('hola-rows').innerHTML = content;
+    // Se inicializa el componente Tooltip asignado a los enlaces para que funcionen las sugerencias textuales.
+    M.Tooltip.init(document.querySelectorAll('.tooltipped'));
+}
 
 function logOut() {
     swal({

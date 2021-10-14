@@ -7,6 +7,7 @@ if (isset($_GET['action'])){
     session_start();
     $entradasalida=new entradasalida;
     $result = array ('status' => 0, 'message' =>null, 'exeception' => null); 
+    if (isset($_SESSION['idusuario'])) {
         switch($_GET['action']){
             case 'readAll':
                 if ($result['dataset'] = $entradasalida->readAll()) {
@@ -58,28 +59,28 @@ if (isset($_GET['action'])){
                                      $result['exception'] = Database::getException();;
                                  }
                                      } else {
-                                    $result['exception'] = 'Nombre incorrecto';
+                                    $result['exception'] = 'Cantidad incorrecto';
                                     } 
                                 } else {
-                                    $result['exception'] = 'Nombre incorrecto';
+                                    $result['exception'] = 'Producto incorrecto';
                                     } 
                                 } else {
-                                    $result['exception'] = 'Nombre incorrecto';
+                                    $result['exception'] = 'Vendedor incorrecto';
                                     } 
                                 } else {
-                                    $result['exception'] = 'Nombre incorrecto';
+                                    $result['exception'] = 'Destino incorrecto';
                                     } 
                                 } else {
-                                    $result['exception'] = 'Nombre incorrecto';
+                                    $result['exception'] = 'Comprobante incorrecto';
                                     } 
                                 } else {
-                                    $result['exception'] = 'Nombre incorrecto';
+                                    $result['exception'] = 'TIpo  incorrecto';
                                     } 
                                 } else {
-                                    $result['exception'] = 'Nombre incorrecto';
+                                    $result['exception'] = 'Codigo VTA incorrecto';
                                     } 
                     } else {
-                    $result['exception'] = 'Nombre incorrecto';
+                    $result['exception'] = 'Fecha incorrecto';
                     }                   
                 break;
 
@@ -169,6 +170,9 @@ if (isset($_GET['action'])){
         }
         header('content-type: application/json; charset=utf-8');
         print(json_encode($result));
+    } else {
+        print(json_encode('Acceso denegado'));
+    }
 } else {
     print(json_encode('Recurso no disponible'));
 }

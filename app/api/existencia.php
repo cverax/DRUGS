@@ -7,6 +7,7 @@ if (isset($_GET['action'])){
     session_start();
     $entradasalida=new entradasalida;
     $result = array ('status' => 0, 'message' =>null, 'exeception' => null); 
+    if (isset($_SESSION['idusuario'])) {
         switch($_GET['action']){
 
             case 'readAll':
@@ -54,9 +55,14 @@ if (isset($_GET['action'])){
                         $result['exception'] = 'Ingrese un valor para buscar';
                     }
                     break;
+                    default:
+                    $result['exception'] = 'Acción no disponible dentro de la sesión';
         }
         header('content-type: application/json; charset=utf-8');
         print(json_encode($result));
+    } else {
+        print(json_encode('Acceso denegado'));
+    }
 } else {
     print(json_encode('Recurso no disponible'));
 }

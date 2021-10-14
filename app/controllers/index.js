@@ -3,6 +3,7 @@
 const API_PRODUCTOS = '../app/api/productos.php?action=';
 const API_REGISTRO = '../app/api/registro.php?action=';
 const API_EXISTENCIAS = '../app/api/existencia.php?action=';
+const API_registrosesion='../app/api/usuario.php?action='
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
@@ -24,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('greeting').textContent = greeting;
     graficaRegistro();
     graficaProductos();
-
 });
 
 
@@ -96,7 +96,32 @@ function graficaRegistro() {
         console.log(error);
     });
 }
+function createRes() {
+    // Se restauran los elementos del formulario.
+    const data = new FormData();
+fetch(API_registrosesion + 'createRes', {     
+    method: 'post',
+    body: data
+}).then(function (request) {
+    // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+    if (request.ok) {
+        request.json().then(function (response) {
+            // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción
+            if (response.status) {     
+                sweetAlert(1, response.message, null);
+            } else {
+                // En caso contrario nos envia este mensaje
+                sweetAlert(2, response.exception, null);
+            }
+        });
+    } else {
+        console.log(request.status + ' ' + request.statusText);
+    }
+}).catch(function (error) {
+    console.log(error);
+});
 
+}
 
 
 

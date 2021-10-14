@@ -7,6 +7,8 @@ if (isset($_GET['action'])){
     session_start();
     $Vendedor=new Vendedor;
     $result = array ('status' => 0, 'message' =>null, 'exeception' => null); 
+    if (isset($_SESSION['idusuario'])) {
+
         switch($_GET['action']){
             case 'readAll':
                 if ($result['dataset'] = $Vendedor->readAll()) {
@@ -25,7 +27,7 @@ if (isset($_GET['action'])){
                             if ($Vendedor->setEstado(isset($_POST['estado']) ? 1 : 0)) {
                                if ($Vendedor->createRow()) {
                                      $result['status'] = 1;
-                                     $result['message'] = 'Origen Guardado Correctamente'; 
+                                     $result['message'] = 'Vendedor Guardado Correctamente'; 
                                  } else {
                                      $result['exception'] = Database::getException();;
                                  }
@@ -60,7 +62,7 @@ if (isset($_GET['action'])){
                                     if ($Vendedor->setEstado(isset($_POST['estado']) ? 1 : 0)) {
                                         if ($Vendedor->updateRow()) {
                                             $result['status'] = 1;
-                                            $result['message'] = 'Origen actualizo Correctamente'; 
+                                            $result['message'] = 'Vendedor actualizo Correctamente'; 
                                         } else {
                                            $result['exception'] = Database::getException();;
                                         }
@@ -82,6 +84,9 @@ if (isset($_GET['action'])){
         }
         header('content-type: application/json; charset=utf-8');
         print(json_encode($result));
+    } else {
+        print(json_encode('Acceso denegado'));
+    }
 } else {
     print(json_encode('Recurso no disponible'));
 }

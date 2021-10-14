@@ -9,11 +9,21 @@ class Usuario extends Validator{
     private $correo = null;
     private $idtipo=null;
     private $tipo =null;
-
+    private $tokens= null;
+    private $tikets= null;
 
     public function setId($value)
     {
         if ($this->validateNaturalNumber($value)) {
+            $this->id = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function setTokens($value)
+    {
+        if ($this->validateAlphanumeric($value,  1, 50)) {
             $this->id = $value;
             return true;
         } else {
@@ -87,6 +97,10 @@ class Usuario extends Validator{
     {
         return $this->id;
     }
+    public function getTokens()
+    {
+        return $this->tokens;
+    }
     public function getNombre()
     {
         return $this->nombre;
@@ -115,6 +129,7 @@ class Usuario extends Validator{
     {
         return $this->tipo;
     }
+    
     public function checkUser($usuario)
     {
         $sql = 'SELECT idusuario, tipousuario FROM usuario WHERE usuario = ?';
@@ -231,5 +246,57 @@ class Usuario extends Validator{
        $params = null;
        return Database::getRows($sql, $params);
    }
+ 
+   public function readCorreo($usuario)
+   {
+    $sql = 'SELECT correo FROM usuario WHERE usuario = ?';
+    $params = array($usuario);
+    if ($data = Database::getRow($sql, $params)) {
+        $this->correo = $data['correo'];
+        $this->usuario = $usuario;
+        return true;
+    } else {
+        return false;
+    }
+   }
+  
+   public function createNew()
+   {
+       $hola=1;
+    $hash = password_hash($this->clave, PASSWORD_DEFAULT);
+       $sql = 'INSERT INTO Usuario (NombreUsuario, Usuario, TipoUsuario, Contraseña, correo)
+       VALUES (?,?,?,?,?)';
+       $params = array($this->nombre, $this->usuario,$hola, $hash, $this->correo);
+       return Database::executeRow($sql, $params);
+   }
 
+   public function readTokens()
+   {
+       $sql = 'UPDATE usuario
+                SET token= ?
+                WHERE correo = ?';
+       $params = array($_SESSION['token'], $_SESSION['correo']);
+       return Database::executeRow($sql, $params);
+   }
+   public function readTiket($correo)
+   {
+    $sql = ' SELECT token FROM usuario WHERE correo = ?';
+    $params = array($correo);
+    if ($data = Database::getRow($sql, $params)) {
+        $this->tokens = $data['token'];
+        $this->correo = $correo;
+        return true;
+    } else {
+        return false;
+    }
+   }
+   public function updatepass()
+   {
+    {
+        $hash = password_hash($this->clave, PASSWORD_DEFAULT);
+        $sql = 'UPDATE usuario SET contraseña = ? WHERE correo = ?';
+        $params = array($hash, $_SESSION['correo']);
+        return Database::executeRow($sql, $params);
+    } 
+   }
 }

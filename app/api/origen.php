@@ -7,6 +7,8 @@ if (isset($_GET['action'])){
     session_start();
     $origen=new Origen;
     $result = array ('status' => 0, 'message' =>null, 'exeception' => null); 
+    if (isset($_SESSION['idusuario'])) {
+
         switch($_GET['action']){
             case 'readAll':
                 if ($result['dataset'] = $origen->readAll()) {
@@ -82,6 +84,9 @@ if (isset($_GET['action'])){
         }
         header('content-type: application/json; charset=utf-8');
         print(json_encode($result));
+    } else {
+        print(json_encode('Acceso denegado'));
+    }
 } else {
     print(json_encode('Recurso no disponible'));
 }

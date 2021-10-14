@@ -1,4 +1,6 @@
 <?php
+
+
 //Clase para definir las plantillas de las páginas web del sitio privado
 class Dashboard_Page {
     //Método para imprimir el encabezado y establecer el titulo del documento
@@ -22,8 +24,18 @@ class Dashboard_Page {
                 <!--Título del documento-->
                 <title>Farglosa - '.$title.'</title>
             </head>
-            
             <body>
+            ');
+
+          
+            //Se obtiene el nombre del archivo de la página web actual.
+            $filename = basename($_SERVER['PHP_SELF']);
+            // Se comprueba si existe una sesión de administrador para mostrar el menú de opciones, de lo contrario se muestra un menú vacío.
+            if (isset($_SESSION['idusuario'])) {
+                // Se verifica si la página web actual es diferente a index.php (Iniciar sesión) y a register.php (Crear primer usuario) para no iniciar sesión otra vez, de lo contrario se direcciona a main.php
+                if ($filename != 'login.php' && $filename != 'register.php') {
+                   if($_SESSION['tipousuario']==1){
+            print('
                 <!--Encabezado del documento-->
                 <header>
                     <nav class="blue-grey darken-2">
@@ -46,6 +58,7 @@ class Dashboard_Page {
                             <ul id="dropdowns" class="dropdown-content">
                             <li><a href="#" onclick="openProfileDialog()"><i class="material-icons">face</i>Editar perfil</a></li>
                              <li><a href="#" onclick="openPasswordDialog()"><i class="material-icons">lock</i>Cambiar clave</a></li>
+                             <li><a href="#" onclick="openfill()"><i class="material-icons">description</i>Registro de sesion</a></li>
                               <li><a href="#" onclick="logOut()"><i class="material-icons">clear</i>Salir</a></li>
                             </ul>
                         </div>  
@@ -57,7 +70,7 @@ class Dashboard_Page {
                             <div class="background">
                                 <img src="../resources/img/fonfo12.jpg"> 
                             </div>
-                            <a href="#user"><img class="circle" src="../resources/img/default-user-image.png"></a>
+                            <a href="#user" ><img class="circle" src="../resources/img/default-user-image.png"></a>
                            
                             
                         </div>
@@ -77,15 +90,160 @@ class Dashboard_Page {
                     </li> 
                 </ul> 
                 <ul id="dropdown" class="dropdown-content">
-                <!--   <li><a href="#" onclick="openProfileDialog()"><i class="material-icons">face</i>Editar perfil</a></li>-->
-                <!--  <li><a href="#" onclick="openPasswordDialog()"><i class="material-icons">lock</i>Cambiar clave</a></li>-->
+                <li><a href="#" onclick="openProfileDialog()"><i class="material-icons">face</i>Editar perfil</a></li>
+                 <li><a href="#" onclick="openPasswordDialog()"><i class="material-icons">lock</i>Cambiar clave</a></li>
+                 <li><a href="#" onclick="openfill()"><i class="material-icons">description</i>Registro de sesion</a></li>
                   <li><a href="#" onclick="logOut()"><i class="material-icons">clear</i>Salir</a></li>
                 </ul>
                 </header>
                 <!--Contenido principal del documento-->
                 <main>
         ');
+    } else if($_SESSION['tipousuario']==2){
+        print('
+        <!--Encabezado del documento-->
+        <header>
+            <nav class="blue-grey darken-2">
+                <div class="nav-wrapper">
+                <a href="#" data-target="mobile" class="sidenav-trigger">
+                <i class="material-icons">menu</i>
+                </a>  
+                <ul class="left left hide-on-med-and-down">
+                   <li><a href="index.php"><i class="material-icons left">home</i>Home</a></li>
+                </ul>                       
+                    <ul class="right hide-on-med-and-down">
+                    <li><a href="existencias.php"><i class="material-icons left">assignment</i>Existencias</a></li>
+                    <li><a href="registro.php"><i class="material-icons left">description</i>Registro</a></li>
+                    <li><a href="origen.php"><i class="material-icons left">location_on</i>Origen/Destino</a></li>
+                    <li><a href="productos.php"><i class="material-icons left">local_pharmacy</i>Productos</a></li>
+                    <li><a href="vendedores.php"><i class="material-icons left">people</i>Vendedores</a></li>
+                    <li><a href="#" class="dropdown-trigger" data-target="dropdowns"><i class="material-icons left">verified_user</i>Cuenta: <b>' . $_SESSION['usuario'] . '</b></a></li>
+                    </ul>
+                    <ul id="dropdowns" class="dropdown-content">
+                    <li><a href="#" onclick="openProfileDialog()"><i class="material-icons">face</i>Editar perfil</a></li>
+                     <li><a href="#" onclick="openPasswordDialog()"><i class="material-icons">lock</i>Cambiar clave</a></li>
+                     <li><a href="#" onclick="openfill()"><i class="material-icons">description</i>Registro de sesion</a></li>
+                      <li><a href="#" onclick="logOut()"><i class="material-icons">clear</i>Salir</a></li>
+                    </ul>
+                </div>  
+            </nav>
+
+            <ul id="mobile" class="sidenav" >
+            <li>  
+                <div class="user-view">
+                    <div class="background">
+                        <img src="../resources/img/fonfo12.jpg"> 
+                    </div>
+                    <a href="#user" ><img class="circle" src="../resources/img/default-user-image.png"></a>
+                   
+                    
+                </div>
+            <li>
+                <li class="hide-on-large-only"><a href="index.php"><i class="material-icons left">home</i>Home</a></li>                                                   
+            </li>                                               
+            <li><div class="divider"></div></li>          
+            <li><a href="existencias.php"><i class="material-icons">assignment</i>Existencias</a></li>
+            <li><a href="registro.php"><i class="material-icons">description</i>Registro</a></li>
+            <li><div class="divider"></div></li>
+            <li><a href="origen.php"><i class="material-icons">location_on</i>Origen/Destino</a></li>
+            <li><a href="productos.php"><i class="material-icons">local_pharmacy</i>Productos</a></li>
+            <li><a href="vendedores.php"><i class="material-icons">people</i>Vendedores</a></li>
+            <li><div class="divider"></div></li>
+            <li><a href="#" class="dropdown-trigger" data-target="dropdown"><i class="material-icons left">verified_user</i>Cuenta: <b>' . $_SESSION['usuario'] . '</b></a></li>
+            </li> 
+        </ul> 
+        <ul id="dropdown" class="dropdown-content">
+        <li><a href="#" onclick="openProfileDialog()"><i class="material-icons">face</i>Editar perfil</a></li>
+         <li><a href="#" onclick="openPasswordDialog()"><i class="material-icons">lock</i>Cambiar clave</a></li>
+         <li><a href="#" onclick="openfill()"><i class="material-icons">description</i>Registro de sesion</a></li>
+          <li><a href="#" onclick="logOut()"><i class="material-icons">clear</i>Salir</a></li>
+        </ul>
+        </header>
+        <!--Contenido principal del documento-->
+        <main>
+');
+    }else if($_SESSION['tipousuario']==3){
+        print('
+        <!--Encabezado del documento-->
+        <header>
+            <nav class="blue-grey darken-2">
+                <div class="nav-wrapper">
+                <a href="#" data-target="mobile" class="sidenav-trigger">
+                <i class="material-icons">menu</i>
+                </a>  
+                <ul class="left left hide-on-med-and-down">
+                   <li><a href="index.php"><i class="material-icons left">home</i>Home</a></li>
+                </ul>                       
+                    <ul class="right hide-on-med-and-down">
+                    <li><a href="existencias.php"><i class="material-icons left">assignment</i>Existencias</a></li>
+                    <li><a href="registro.php"><i class="material-icons left">description</i>Registro</a></li>
+                    <li><a href="#" class="dropdown-trigger" data-target="dropdowns"><i class="material-icons left">verified_user</i>Cuenta: <b>' . $_SESSION['usuario'] . '</b></a></li>
+                    </ul>
+                    <ul id="dropdowns" class="dropdown-content">
+                    <li><a href="#" onclick="openProfileDialog()"><i class="material-icons">face</i>Editar perfil</a></li>
+                     <li><a href="#" onclick="openPasswordDialog()"><i class="material-icons">lock</i>Cambiar clave</a></li>
+                     <li><a href="#" onclick="openfill()"><i class="material-icons">description</i>Registro de sesion</a></li>
+                      <li><a href="#" onclick="logOut()"><i class="material-icons">clear</i>Salir</a></li>
+                    </ul>
+                </div>  
+            </nav>
+
+            <ul id="mobile" class="sidenav" >
+            <li>  
+                <div class="user-view">
+                    <div class="background">
+                        <img src="../resources/img/fonfo12.jpg"> 
+                    </div>
+                    <a href="#user" ><img class="circle" src="../resources/img/default-user-image.png"></a>
+                   
+                    
+                </div>
+            <li>
+                <li class="hide-on-large-only"><a href="index.php"><i class="material-icons left">home</i>Home</a></li>                                                   
+            </li>                                               
+            <li><div class="divider"></div></li>          
+            <li><a href="existencias.php"><i class="material-icons">assignment</i>Existencias</a></li>
+            <li><a href="registro.php"><i class="material-icons">description</i>Registro</a></li>
+            <li><div class="divider"></div></li>
+            <li><a href="#" class="dropdown-trigger" data-target="dropdown"><i class="material-icons left">verified_user</i>Cuenta: <b>' . $_SESSION['usuario'] . '</b></a></li>
+            </li> 
+        </ul> 
+        <ul id="dropdown" class="dropdown-content">
+        <li><a href="#" onclick="openProfileDialog()"><i class="material-icons">face</i>Editar perfil</a></li>
+         <li><a href="#" onclick="openPasswordDialog()"><i class="material-icons">lock</i>Cambiar clave</a></li>
+         <li><a href="#" onclick="openfill()"><i class="material-icons">description</i>Registro de sesion</a></li>
+          <li><a href="#" onclick="logOut()"><i class="material-icons">clear</i>Salir</a></li>
+        </ul>
+        </header>
+        <!--Contenido principal del documento-->
+        <main>
+');
     }
+    } else {
+        header('location: index.php');
+    }
+} else {
+    // Se verifica si la página web actual es diferente a index.php (Iniciar sesión) y a register.php (Crear primer usuario) para direccionar a index.php, de lo contrario se muestra un menú vacío.
+    if ($filename != 'login.php' && $filename != 'registro.php') {
+        header('location: login.php');
+    } else {
+        // Se imprime el código HTML para el encabezado del documento con un menú vacío cuando sea iniciar sesión o registrar el primer usuario.
+        print('
+            <header>
+                <div class="navbar-fixed">
+                    <nav class="teal">
+                        <div class="nav-wrapper">
+                            <a href="login.php" class="brand-logo"><i class="material-icons">dashboard</i></a>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+            <main class="container">
+                <h3 class="center-align">' . $title . '</h3>
+        ');
+    }
+}
+}
 
     //Método para imprimir el pie y establecer el controlador del documento
     public static function footerTemplate($controller) {
@@ -96,10 +254,10 @@ class Dashboard_Page {
                     <div class="container">
                         <div class="row">
                             <div class="col l6 s12">
-                                <h5 class="white-text">Farglosa Administrativo</h5>                               
+                                <h5 class="white-text">Inventario Farglosa</h5>                               
                             </div>
                             <div class="col l4 offset-l2 s12">
-                                <h5 class="white-text">Sitio Público</h5>
+                                <h5 class="white-text">Sitio Privado</h5>
                                 
                             </div>
                         </div>
@@ -189,6 +347,26 @@ class Dashboard_Page {
                         </form>
                     </div>
                 </div>
+                <!-- Componente Modal para mostrar el formulario de cambiar contraseña -->
+                <div id="cont-modal" class="modal">
+                <div class="container">
+                     <div class="row card-panel">
+                        <table class="responsive-table ">
+                 <!-- Cabeza de la tabla para mostrar los títulos de las columnas -->
+                    <thead>
+                     <tr>
+                        <th>Navegador</th>
+                        <th>Dispositivo</th>
+                        <th>Fecha</th>
+                      </tr>
+                    </thead>
+                <!-- Cuerpo de la tabla para mostrar un registro por fila -->
+                    <tbody id="hola-rows">
+                    </tbody>
+                </table>
+            </div>
+            </div>
+            </div>
             ');
     }                                                      
 }
