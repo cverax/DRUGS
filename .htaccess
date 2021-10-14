@@ -3,7 +3,7 @@
 # ----------------------------------------------------------------------
 
 ErrorDocument 403 /GitHub/DRUGS/resources/error/403.html
-ErrorDocument 404 /GitHub/DRUGS/resources/error/403.html
+ErrorDocument 404 /GitHub/DRUGS/resources/error/404.html
 
 # ----------------------------------------------------------------------
 # | Error prevention                                                   |
